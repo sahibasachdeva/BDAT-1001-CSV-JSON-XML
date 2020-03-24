@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "ayFY+GCMg4gjycKAC5EHkHKRay4B2cQeUBIdOO+l2ffLMDWJFSaGUujdxdFvSEh3E6mlzbXMuKbO1JNWWp5+Cw==",
+  "success": true,
+  "projectFilePath": "D:\\BDAT\\Information Encoding\\Assignment3\\Assignment3.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\chirag\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\chirag\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\chirag\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
