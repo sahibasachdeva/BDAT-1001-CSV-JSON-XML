@@ -1,4 +1,4 @@
-﻿using Assignment3.Model;
+using Assignment3.Model;
 using System;
 using System.Collections.Generic;
 using Assignment3.Helper;
@@ -29,8 +29,7 @@ namespace Assignment3
                 bool fileExists = Helper.FTP.FileExists(infoFilePath);
                 if (fileExists == true)
                 {
-                    string csvPath = $@"C:\Users\chirag\Desktop\Students\{directory}.csv";
-                    //Helper.FTP.DownloadFile(infoFilePath, csvPath);
+                    string csvPath = $@"C:\Users\chirag\Desktop\Students\{directory}.csv";                 
 
                     var downloadedBytes = Helper.FTP.DownloadFileBytes(infoFilePath);
                     string csvData = Encoding.Default.GetString(downloadedBytes);
@@ -60,7 +59,10 @@ namespace Assignment3
 
                 if (imageFileExists == true)
                 {
-                    Console.WriteLine("Found image file:");
+                    var imageBytes = Helper.FTP.DownloadFileBytes(student.MyImagePath);
+                    Image myimage = Helper.ImageConversion.ByteArrayToImage(imageBytes);
+
+                    string base64 = ImageConversion.ImageToBase64(myimage, ImageFormat.Jpeg);
                 }
                 else
                 {
@@ -128,14 +130,9 @@ namespace Assignment3
             Console.WriteLine("Count of starts With" + c);
             Console.WriteLine("Count of Contains is " + d);
 
-            List<int> age = new List<int>();
-            foreach(var stu in students)
-            {
-                age.Add(stu.age);
-            }
-            var averageAge = age.Average();
-            var maxAge = age.Max();
-            var minAge = age.Min();
+            var averageAge = students.Average(x => x.age);
+            var maxAge = students.Max(x => x.age);
+            var minAge = students.Min(x => x.age);
             Console.WriteLine("the Average Age is " + averageAge);
             Console.WriteLine("{0} is the MAX age and {1} is the MIN age", maxAge, minAge); 
             #endregion
