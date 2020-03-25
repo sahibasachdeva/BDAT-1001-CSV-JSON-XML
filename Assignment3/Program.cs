@@ -8,6 +8,7 @@ using System.Linq;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Assignment3
 {
@@ -82,26 +83,27 @@ namespace Assignment3
                 }
             }
 
-            string studentXMLPath = $"{Constants.Locations.DataFolder}\\students.xml";
-            using (StreamWriter fs = new StreamWriter(studentXMLPath))
+            //string studentXMLPath = $"{Constants.Locations.DataFolder}\\students.xml";
+            XmlSerializer xmlSerializer = new XmlSerializer(students.GetType());
+
+
+            //Serialize XML
+            //Create an instacne of StringWriter to write the XML string as a Stream
+            using (StringWriter textWriter = new StringWriter())
             {
-                foreach (var student in students)
-                {
-                    fs.WriteLine(student.ToXML());
-                }
+                //Convert the student object to XML
+                xmlSerializer.Serialize(textWriter, students);
+
+                //Write out the XML to the Console
+                string studentXMLPath = textWriter.ToString();
+                Helper.FTP.UploadFile(studentXMLPath, Constants.FTP.BaseUrl + Constants.FTP.remoteUploadFileDestination + "xml", Constants.FTP.Username, Constants.FTP.Password);
+
             }
 
-            string studentJSONPath = $"{Constants.Locations.DataFolder}\\students.json";
-            using (StreamWriter fs = new StreamWriter(studentJSONPath))
-            {
-                foreach (var student in students)
-                {
-                    fs.WriteLine(student.ToJSON());
-                }
-            }
+            string studentJSONPath = Newtonsoft.Json.JsonConvert.SerializeObject(students);
+
 
             Helper.FTP.UploadFile(studentCSVPath, Constants.FTP.BaseUrl + Constants.FTP.remoteUploadFileDestination + "csv", Constants.FTP.Username, Constants.FTP.Password);
-            Helper.FTP.UploadFile(studentXMLPath, Constants.FTP.BaseUrl + Constants.FTP.remoteUploadFileDestination + "xml", Constants.FTP.Username, Constants.FTP.Password);
             Helper.FTP.UploadFile(studentJSONPath, Constants.FTP.BaseUrl + Constants.FTP.remoteUploadFileDestination + "json", Constants.FTP.Username, Constants.FTP.Password);
 
             #region Aggregate 
